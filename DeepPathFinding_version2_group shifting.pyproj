@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{bf6a4053-8842-49f4-bc13-3aa8116b1788}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>shifting train.py</StartupFile>
+    <StartupFile>shifting_train_multi_scale.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -39,6 +39,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
+    <Compile Include="multiscaleloss.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="path_train.py">
       <SubType>Code</SubType>
     </Compile>
@@ -46,6 +49,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="shifting train.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ShiftingNetBody.py" />
+    <Compile Include="shifting_train_multi_scale.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="testDataReading.py">
@@ -61,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="images" />
+    <Folder Include="images\NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
