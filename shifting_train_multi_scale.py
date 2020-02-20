@@ -29,7 +29,7 @@ if Visdom_flag == True:
 
 from scipy import signal 
 Matrix_dir =  "..\\dataset\\CostMatrix\\1\\"
-Save_pic_dir = '..\\DeepPathFinding_Version2\\out\\'
+#Save_pic_dir = '..\\DeepPathFinding_Version2\\out\\'
 opt = arg_parse.opt
 opt.cuda = True
 # check the cuda device 
@@ -271,9 +271,9 @@ while(1):
     # do checkpointing
     #torch.save(netG.state_dict(), '%s/netG_epoch_%d.pth' % (opt.outf, epoch))
     #torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch
-    torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch))
+    torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (c, epoch))
     #cv2.imwrite(Save_pic_dir  + str(epoch) +".jpg", show2)
 
-    cv2.imwrite(Save_pic_dir  + str(epoch) +".jpg", show2)
+    cv2.imwrite(opt.outf  + str(epoch) +".jpg", show2)
     if epoch >=50:
         epoch =0

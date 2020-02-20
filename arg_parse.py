@@ -32,10 +32,10 @@ parser.add_argument('--beta1', type=float, default=0.5, help='beta1 for adam. de
 #parser.add_argument('--netG', default='..\\DCGANproject\\out\\netG_epoch_50.pth', help="path to netG (to continue training)")
 #parser.add_argument('--netD', default='..\\DCGANproject\\out\\netD_epoch_50.pth', help="path to netD (to continue training)")
 #parser.add_argument('--netG', default='', help="path to netG (to continue training)")
-#parser.add_argument('--netD', default='..\\DeepPathFinding_Version2\\out\\netD_epoch_18.pth', help="path to netD (to continue training)")
-parser.add_argument('--netD', default='', help="path to netD (to continue training)")
+parser.add_argument('--netD', default='..\\out\\DeepPathFinding_Version2\\netD_epoch_18.pth', help="path to netD (to continue training)")
+#parser.add_argument('--netD', default='', help="path to netD (to continue training)")
 
-parser.add_argument('--outf', default='..\\DeepPathFinding_Version2\\out', help='folder to output images and model checkpoints')
+parser.add_argument('--outf', default='..\\out\\DeepPathFinding_Version2', help='folder to output images and model checkpoints')
 parser.add_argument('--manualSeed', type=int, help='manual seed')
 parser.add_argument('--train_svm', action='store_true', help='enable train svm using saved features')
 
