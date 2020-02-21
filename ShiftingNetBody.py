@@ -48,7 +48,7 @@ class _ShiftingNet(nn.Module):
 
         self.batchNorm = batchNorm
         #LGQ the input is change into gray scale
-        self.conv1   = conv(self.batchNorm,   2,   64, kernel_size=7, stride=2)
+        self.conv1   = conv(self.batchNorm,   4,   64, kernel_size=7, stride=2)
         self.conv2   = conv(self.batchNorm,  64,  128, kernel_size=5, stride=2)
         self.conv3   = conv(self.batchNorm, 128,  256, kernel_size=5, stride=2)
         self.conv3_1 = conv(self.batchNorm, 256,  256)

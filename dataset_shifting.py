@@ -42,6 +42,7 @@ class myDataloader_for_shift(object):
         self.input_pair1 = np.zeros((batch_size,1,Resample_size2,Resample_size))#pairs
         self.input_pair2 = np.zeros((batch_size,1,Resample_size2,Resample_size))
         self.input_pair3 = np.zeros((batch_size,1,Resample_size2,Resample_size))
+        self.input_pair4 = np.zeros((batch_size,1,Resample_size2,Resample_size))
 
         # the number isdeter by teh mat num
         self.all_dir_list = os.listdir(self.data_mat_root)
@@ -147,15 +148,21 @@ class myDataloader_for_shift(object):
                 amplifier  = random()
                 pair1_piece =   self.gray_scale_augmentation(this_pair1[Crop_start:Crop_end,:],amplifier)
                 pair2_piece =   self.gray_scale_augmentation(this_pair2[Crop_start:Crop_end,:],amplifier)
+                pair3_piece =   self.gray_scale_augmentation(this_pair1 ,amplifier)
+                pair4_piece =   self.gray_scale_augmentation(this_pair2,amplifier)
+
                 pair1_piece  =  cv2.resize(pair1_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
                 pair2_piece  =  cv2.resize(pair2_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
-
+                pair3_piece  =  cv2.resize(pair3_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+                pair4_piece  =  cv2.resize(pair4_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
                 #fill in the batch
                 self.input_mat[this_pointer,0,:,:] = this_mat #transform_mat(this_ma)[0]
                 #self.input_pair1[this_pointer,0,:,:] = transform_img(pair1_piece)[0]
                 #self.input_pair2[this_pointer,0,:,:] = transform_img(pair2_piece)[0]
                 self.input_pair1[this_pointer,0,:,:] = pair1_piece -104
                 self.input_pair2[this_pointer,0,:,:] = pair2_piece - 104
+                self.input_pair3[this_pointer,0,:,:] = pair3_piece -104
+                self.input_pair4[this_pointer,0,:,:] = pair4_piece - 104
                 self.input_path [this_pointer , :] = this_path[0] / Original_window_Len
                 this_pointer +=1
  

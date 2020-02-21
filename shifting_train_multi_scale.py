@@ -178,7 +178,11 @@ while(1):
         ini_input_pair1 = mydata_loader.input_pair1
         ini_input_pair2 = mydata_loader.input_pair2
         ini_input_0   = ini_input_pair2
-        np_input = numpy.append(ini_input_pair1,ini_input_0,axis=1)
+        np_input = numpy.append(mydata_loader.input_pair1,mydata_loader.input_pair2,axis=1)
+        np_input = numpy.append(np_input,mydata_loader.input_pair3,axis=1)
+        np_input = numpy.append(np_input,mydata_loader.input_pair4,axis=1)
+
+
         #np_input = numpy.append(np_input,ini_input_pair2,axis=1)
 
         input = torch.from_numpy(numpy.float32(np_input)) 
@@ -271,7 +275,7 @@ while(1):
     # do checkpointing
     #torch.save(netG.state_dict(), '%s/netG_epoch_%d.pth' % (opt.outf, epoch))
     #torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch
-    torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (c, epoch))
+    torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch))
     #cv2.imwrite(Save_pic_dir  + str(epoch) +".jpg", show2)
 
     cv2.imwrite(opt.outf  + str(epoch) +".jpg", show2)
