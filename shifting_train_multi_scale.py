@@ -1,3 +1,5 @@
+# rhis is the main py for group shifting train
+
 import torch.nn as nn
 import torch.optim as optim
 import torch.utils.data

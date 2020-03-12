@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{bf6a4053-8842-49f4-bc13-3aa8116b1788}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>shifting_train_multi_scale.py</StartupFile>
+    <StartupFile>train_pair_to_path.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -28,6 +28,9 @@
     <Compile Include="dataset.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="dataset_pair_path.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="dataset_shifting.py">
       <SubType>Code</SubType>
     </Compile>
@@ -40,6 +43,9 @@
     </Compile>
     <Compile Include="main.py" />
     <Compile Include="multiscaleloss.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Net_pair_path_body.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="path_train.py">
@@ -59,6 +65,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="test_Deep_finding.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="train_pair_to_path.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

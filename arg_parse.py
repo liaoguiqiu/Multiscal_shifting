@@ -21,7 +21,7 @@ parser.add_argument('--nz', type=int, default=780, help='size of the latent z ve
 parser.add_argument('--ngf', type=int, default=32)
 parser.add_argument('--ndf', type=int, default=16)
 parser.add_argument('--niter', type=int, default=5000, help='number of epochs to train for')
-parser.add_argument('--lr', type=float, default=0.0000001, help='learning rate, default=0.0002')
+parser.add_argument('--lr', type=float, default=0.0001, help='learning rate, default=0.0002')
 #parser.add_argument('--lr', type=float, default=0.00005, help='learning rate, default=0.0002')
 
 #parser.add_argument('--lr', type=float, default=0.0000005, help='learning rate, default=0.0002')
@@ -32,7 +32,7 @@ parser.add_argument('--beta1', type=float, default=0.5, help='beta1 for adam. de
 #parser.add_argument('--netG', default='..\\DCGANproject\\out\\netG_epoch_50.pth', help="path to netG (to continue training)")
 #parser.add_argument('--netD', default='..\\DCGANproject\\out\\netD_epoch_50.pth', help="path to netD (to continue training)")
 #parser.add_argument('--netG', default='', help="path to netG (to continue training)")
-parser.add_argument('--netD', default='..\\out\\DeepPathFinding_Version2\\netD_epoch_20.pth', help="path to netD (to continue training)")
+parser.add_argument('--netD', default='..\\out\\DeepPathFinding_Version2\\netD_epoch_6.pth', help="path to netD (to continue training)")
 #parser.add_argument('--netD', default='', help="path to netD (to continue training)")
 
 parser.add_argument('--outf', default='..\\out\\DeepPathFinding_Version2', help='folder to output images and model checkpoints')
