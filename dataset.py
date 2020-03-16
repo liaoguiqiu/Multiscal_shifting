@@ -8,7 +8,7 @@ from image_trans import BaseTransform
 from random import seed
 from random import random
 seed(1)
-Batch_size = 1
+Batch_size = 100
 Resample_size =80
 Resample_size2 = 80
 Path_length = 20
@@ -20,9 +20,9 @@ transform_mat = BaseTransform(  Mat_size,[104])  #gray scale data
 
 class myDataloader(object):
     def __init__(self, batch_size,image_size,path_size):
-        self.data_pair1_root = "..\\dataset\\For_pair_IMG_Train\\pair1\\"
+        self.data_pair1_root = "../dataset/For_pair_IMG_Train/pair1/"
         self.data_pair2_root = "..\\dataset\\For_pair_IMG_Train\\pair2\\"
-        self.data_mat_root = "..\\dataset\\For_pair_IMG_Train\\CostMatrix\\"
+        self.data_mat_root = "../dataset/For_pair_IMG_Train/CostMatrix/"
         self.signalroot ="..\\dataset\\For_pair_IMG_Train\\saved_stastics\\" 
         self.read_all_flag=0
         self.read_record =0

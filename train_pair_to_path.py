@@ -33,6 +33,8 @@ if Visdom_flag == True:
 
 
 from scipy import signal 
+pth_save_dir = "../out/DeepPathFinding_Version2/"
+
 Matrix_dir =  "..\\dataset\\CostMatrix\\1\\"
 #Save_pic_dir = '..\\DeepPathFinding_Version2\\out\\'
 opt = arg_parse.opt
@@ -292,8 +294,8 @@ while(1):
             
             show3 = numpy.append(show1,show2,axis=1) # cascade
             cv2.imshow('Deeplearning one',show3.astype(numpy.uint8)) 
-            show4 =  mydata_loader.input_pair1[dispay_id,0,:,:]
-            show5 =  mydata_loader.input_pair2[dispay_id,0,:,:]
+            show4 =  mydata_loader.input_pair3[dispay_id,0,:,:]
+            show5 =  mydata_loader.input_pair4[dispay_id,0,:,:]
             show6 = numpy.append(show4,show5,axis=0) +104 # cascade
             cv2.imshow('Input one',show6.astype(numpy.uint8)) 
 
@@ -302,9 +304,11 @@ while(1):
     # do checkpointing
     #torch.save(netG.state_dict(), '%s/netG_epoch_%d.pth' % (opt.outf, epoch))
     #torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch
-    torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch))
+    # torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch))
+    torch.save(netD.state_dict(), pth_save_dir+ "netD_epoch_"+str(epoch)+".pth")
+
     #cv2.imwrite(Save_pic_dir  + str(epoch) +".jpg", show2)
 
-    cv2.imwrite(opt.outf  + str(epoch) +".jpg", show2)
-    if epoch >=50:
+    cv2.imwrite(pth_save_dir  + str(epoch) +".jpg", show2)
+    if epoch >=5:
         epoch =0

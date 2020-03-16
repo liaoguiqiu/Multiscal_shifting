@@ -10,10 +10,10 @@ from image_trans import BaseTransform
 from random import seed
 from random import random
 seed(1)
-Batch_size = 5
-Resample_size =128
-Resample_size2 = 128
-Path_length = 128
+Batch_size = 4
+Resample_size =300
+Resample_size2 = 300
+Path_length = 300
 Mat_size   = 71
 Original_window_Len  = 71
 transform_img = BaseTransform(  Resample_size,[104])  #gray scale data
@@ -23,10 +23,10 @@ Crop_end  = 200
 
 class myDataloader_for_shift(object):
     def __init__(self, batch_size,image_size,path_size):
-        self.data_pair1_root = "..\\dataset\\For_pair_train2\\pair1\\"  # assume this one is the newest frame
-        self.data_pair2_root = "..\\dataset\\For_pair_train2\\pair2\\" # assume this one is the historical image
-        self.data_mat_root = "..\\dataset\\For_pair_train2\\CostMatrix\\"
-        self.signalroot ="..\\dataset\\For_pair_train2\\saved_stastics\\" 
+        self.data_pair1_root = "../dataset/For_pair_IMG_Train/pair1/"  # assume this one is the newest frame
+        self.data_pair2_root = "../dataset/For_pair_IMG_Train/pair2/" # assume this one is the historical image
+        self.data_mat_root = "../dataset/For_pair_IMG_Train/CostMatrix/"
+        self.signalroot ="../dataset/For_pair_IMG_Train/saved_stastics/" 
         self.read_all_flag=0
         self.read_record =0
         self.folder_pointer = 0
@@ -65,16 +65,16 @@ class myDataloader_for_shift(object):
         for subfold in self.all_dir_list:
             #the mat list
             this_folder_list =  os.listdir(os.path.join(self.data_mat_root, subfold))
-            this_folder_list2 = [ self.data_mat_root +subfold + "\\" + pointer for pointer in this_folder_list]
+            this_folder_list2 = [ self.data_mat_root +subfold + "/" + pointer for pointer in this_folder_list]
             self.folder_mat_list[number_i] = this_folder_list2
 
             #the pair1 list
             this_folder_list =  os.listdir(os.path.join(self.data_pair1_root, subfold))
-            this_folder_list2 = [ self.data_pair1_root +subfold + "\\" + pointer for pointer in this_folder_list]
+            this_folder_list2 = [ self.data_pair1_root +subfold + "/" + pointer for pointer in this_folder_list]
             self.folder_pair1_list[number_i] = this_folder_list2
             #the pair2 list
             this_folder_list =  os.listdir(os.path.join(self.data_pair2_root, subfold))
-            this_folder_list2 = [ self.data_pair2_root +subfold + "\\" + pointer for pointer in this_folder_list]
+            this_folder_list2 = [ self.data_pair2_root +subfold + "/" + pointer for pointer in this_folder_list]
             self.folder_pair2_list[number_i] = this_folder_list2
             #the supervision signal list
                #change the dir firstly before read
