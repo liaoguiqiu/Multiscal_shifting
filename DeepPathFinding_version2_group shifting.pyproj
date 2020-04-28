@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{bf6a4053-8842-49f4-bc13-3aa8116b1788}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>shifting_tain_2.py</StartupFile>
+    <StartupFile>shifting_train_multi_scale.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -57,6 +57,9 @@
     <Compile Include="PathNetbody.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="matlab.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="shifting train.py">
       <SubType>Code</SubType>
     </Compile>
@@ -84,6 +87,7 @@
   <ItemGroup>
     <Folder Include="images" />
     <Folder Include="images\NewFolder1\" />
+    <Folder Include="save_result_analy\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>

@@ -9,7 +9,7 @@ from image_trans import BaseTransform
 from random import seed
 from random import random
 seed(1)
-Batch_size = 10
+Batch_size = 20
 Resample_size =128
 Resample_size2 = 128
 Path_length = 1

@@ -269,8 +269,15 @@ while(1):
             cv2.imshow('Deeplearning one',show3.astype(numpy.uint8)) 
             show4 =  mydata_loader.input_pair1[dispay_id,0,:,:]
             show5 =  mydata_loader.input_pair2[dispay_id,0,:,:]
-            show6 = numpy.append(show4,show5,axis=0) +104 # cascade
-            cv2.imshow('Input one',show6.astype(numpy.uint8)) 
+            show6 =  mydata_loader.input_pair3[dispay_id,0,:,:]
+            show7 =  mydata_loader.input_pair4[dispay_id,0,:,:]
+
+            show8 = numpy.append(show4,show5,axis=0)  # cascade
+            show8 = numpy.append(show8,show6,axis=0)  # cascade
+
+            show8 = numpy.append(show8,show7,axis=0)  # cascade
+            show8  = show8 + 104
+            cv2.imshow('Input one',show8.astype(numpy.uint8)) 
 
             if cv2.waitKey(12) & 0xFF == ord('q'):
               break

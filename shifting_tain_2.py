@@ -20,6 +20,7 @@ import os
 from dataset_shifting2 import myDataloader_for_shift,Batch_size,Resample_size, Path_length, Mat_size,Resample_size2
 from dataset_shifting2 import Original_window_Len
 from multiscaleloss import multiscaleEPE
+from  matlab import Save_Signal_matlab
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # Switch control for the Visdom or Not
 Visdom_flag  = True 
@@ -160,7 +161,7 @@ epoch=0
 iteration_num =0
 mydata_loader = myDataloader_for_shift (Batch_size,Resample_size,Path_length)
 multi_scale_weight = [0.005, 0.01, 0.02, 0.08, 0.32]
-
+matlab_saver  = Save_Signal_matlab()
 while(1):
     epoch+= 1
     #almost 900 pictures
@@ -231,6 +232,9 @@ while(1):
         print('[%d/%d][%d/%d] Loss_D: %.4f Loss_G: %.4f D(x): %.4f D(G(z)): %.4f / %.4f'
               % (epoch, 0, read_id, 0,
                  loss.data, D_x, 0, 0, 0))
+        if matlab_saver.flag  == True : 
+            matlab_saver.buffer_loss(D_x.cpu().detach().numpy())
+            matlab_saver.save_mat()
         if Visdom_flag == True:
                 plotter.plot( 'LOSS', 'LOSS', 'LOSS', iteration_num, D_x.cpu().detach().numpy())
         if read_id % 2 == 0:
@@ -260,8 +264,8 @@ while(1):
                 save_out  = Original_window_Len -1
             show2  = Matrix*0
             
-            if save_out >= Original_window_Len:
-                save_out  = Original_window_Len-1
+            #if save_out >= Original_window_Len:
+            save_out  = numpy.clip(int(save_out),0, Original_window_Len-1)
             show2[int(save_out ),:]=254
 
 
