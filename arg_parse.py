@@ -32,7 +32,7 @@ parser.add_argument('--beta1', type=float, default=0.5, help='beta1 for adam. de
 #parser.add_argument('--netG', default='../DCGANproject/out/netG_epoch_50.pth', help="path to netG (to continue training)")
 #parser.add_argument('--netD', default='../DCGANproject/out/netD_epoch_50.pth', help="path to netD (to continue training)")
 #parser.add_argument('--netG', default='', help="path to netG (to continue training)")
-parser.add_argument('--netD', default='../out/DeepPathFinding_Version2/netD_epoch_25.pth', help="path to netD (to continue training)")
+parser.add_argument('--netD', default='../out/DeepPathFinding_Version2/netD_epoch_0.pth', help="path to netD (to continue training)")
 #parser.add_argument('--netD', default='', help="path to netD (to continue training)")
 
 parser.add_argument('--outf', default='../out/DeepPathFinding_Version2/', help='folder to output images and model checkpoints')

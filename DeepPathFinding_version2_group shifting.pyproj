@@ -70,6 +70,9 @@
     <Compile Include="shifting_tain_2.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ShiftingNetBody_V2.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="testDataReading.py">
       <SubType>Code</SubType>
     </Compile>

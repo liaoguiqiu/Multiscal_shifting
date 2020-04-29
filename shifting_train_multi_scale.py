@@ -7,7 +7,7 @@ import torchvision.datasets as dset
 import torchvision.transforms as transforms
 import torchvision.utils as vutils
 from torch.autograd import Variable
-import ShiftingNetBody
+import ShiftingNetBody_V2
 import arg_parse
 import imagenet
 from analy import MY_ANALYSIS
@@ -107,15 +107,26 @@ nc = 3 # channels
 
 #Guiqiu Resnet version
 
-netD = ShiftingNetBody.ShiftingNet_init( None)
-
-
+netD = ShiftingNetBody_V2.ShiftingNet_init( None)
+#my_netD  = ShiftingNetBody.ShiftingNet_init_my( None)
 
 netD.apply(weights_init)
 if opt.netD != '':
     netD.load_state_dict(torch.load(opt.netD))
 print(netD)
- 
+
+
+## rename the saved weight
+#state_dict = netD.state_dict()
+#state_dict_v2 =  netD.state_dict()
+#for key in state_dict:
+#    if 'flow' in key:
+#        pre, post = key.split('flow')
+#        state_dict_v2[pre+'shift'+post] = state_dict_v2.pop(key)
+
+#my_netD.load_state_dict(state_dict_v2)
+#result =(my_netD.predict_shift6.weight == netD.predict_flow6.weight).all()
+#torch.save(my_netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, 0)) 
  
 
 
@@ -163,7 +174,7 @@ mydata_loader = myDataloader_for_shift (Batch_size,Resample_size,Path_length)
 multi_scale_weight = [0.005, 0.01, 0.02, 0.08, 0.32]
 matlab_saver  = Save_Signal_matlab()
 while(1):
-    #torch.save(netD.state_dict(), '%s/netD_epoch_%d.pth' % (opt.outf, epoch))
+    
     epoch+= 1
     #almost 900 pictures
     while(1):
