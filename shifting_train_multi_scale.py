@@ -249,7 +249,7 @@ while(1):
             matlab_saver.save_mat()
         if Visdom_flag == True:
                 plotter.plot( 'LOSS', 'LOSS', 'LOSS', iteration_num, D_x.cpu().detach().numpy())
-        if read_id % 2 == 0:
+        if read_id % 1 == 0:
             #vutils.save_image(real_cpu,
             #        '%s/real_samples.png' % opt.outf,
             #        normalize=True)
@@ -258,7 +258,7 @@ while(1):
             #cv2.imwrite(Save_pic_dir  + str(i) +".jpg", mat)
             #show the result
 
-            dispay_id =0
+            dispay_id =5
             Matrix  =   mydata_loader.input_mat[dispay_id,0,:,:] +104
             show1 = Matrix*0
             path2 = (mydata_loader.input_path[dispay_id,:])*Original_window_Len
