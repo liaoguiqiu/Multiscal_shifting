@@ -157,6 +157,7 @@ epoch=0
 iteration_num =0
 mydata_loader = myDataloader_for_shift (Batch_size,Resample_size,Path_length)
 while(1):
+
     epoch+= 1
     #almost 900 pictures
     while(1):

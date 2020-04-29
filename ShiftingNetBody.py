@@ -3,8 +3,8 @@ import torch.nn as nn
 from torch.nn.init import kaiming_normal_, constant_
 import torch.nn.functional as F
 
-# basic re-useful function
-# basic conv with default kernel 3*3
+ 
+#   conv with default kernel 3*3
 #with inpuut plane and out put plane can be modified 
 def conv(batchNorm, in_planes, out_planes, kernel_size=3, stride=1):
     if batchNorm:
@@ -18,7 +18,7 @@ def conv(batchNorm, in_planes, out_planes, kernel_size=3, stride=1):
             nn.Conv2d(in_planes, out_planes, kernel_size=kernel_size, stride=stride, padding=(kernel_size-1)//2, bias=True),
             nn.LeakyReLU(0.1,inplace=True)
         )
-# basic flow/differential computation
+ 
 # with default out plane 2 
 # for our use  it can be 1   
 def predict_flow(in_planes):
@@ -172,22 +172,14 @@ class _ShiftingNet2(nn.Module):
         self.predict_flow3 = predict_flow(386-1)
         self.predict_flow2 = predict_flow(194-1)
 
-        #self.predict_flow6 = predict_flow(1024)
-        #self.predict_flow5 = predict_flow(1026)
-        #self.predict_flow4 = predict_flow(770)
-        #self.predict_flow3 = predict_flow(386)
-        #self.predict_flow2 = predict_flow(194)
+ 
 
         # LGQ change the array into 1 D
         self.upsampled_flow6_to_5 = nn.ConvTranspose2d(1, 1, 4, 2, 1, bias=False)
         self.upsampled_flow5_to_4 = nn.ConvTranspose2d(1, 1, 4, 2, 1, bias=False)
         self.upsampled_flow4_to_3 = nn.ConvTranspose2d(1, 1, 4, 2, 1, bias=False)
         self.upsampled_flow3_to_2 = nn.ConvTranspose2d(1, 1, 4, 2, 1, bias=False)
-
-        #self.upsampled_flow6_to_5 = nn.ConvTranspose2d(2, 2, 4, 2, 1, bias=False)
-        #self.upsampled_flow5_to_4 = nn.ConvTranspose2d(2, 2, 4, 2, 1, bias=False)
-        #self.upsampled_flow4_to_3 = nn.ConvTranspose2d(2, 2, 4, 2, 1, bias=False)
-        #self.upsampled_flow3_to_2 = nn.ConvTranspose2d(2, 2, 4, 2, 1, bias=False)
+ 
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d) or isinstance(m, nn.ConvTranspose2d):
@@ -260,7 +252,6 @@ def ShiftingNet_init2(data=None):
         model.load_state_dict(data['state_dict'])
     return model
 def ShiftingNet_bn_init(data=None):
- 
     #Args:
     #    data : pretrained weights of the network. will create a new one if not set
     #"""
