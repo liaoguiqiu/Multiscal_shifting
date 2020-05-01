@@ -3,12 +3,11 @@ import numpy as np
 import os
 from analy import MY_ANALYSIS
 from analy import Save_signal_enum
-from scipy import signal 
 from image_trans import BaseTransform  
 from random import seed
 from random import random
 seed(1)
-Batch_size = 6
+Batch_size = 10
 Resample_size =128
 Resample_size2 = 128
 Path_length = 1
@@ -21,10 +20,12 @@ Crop_end  = 200
 
 class myDataloader_for_shift(object):
     def __init__(self, batch_size,image_size,path_size):
-        self.data_pair1_root = "..\\dataset\\For_shift_train\\pair1\\"  # assume this one is the newest frame
-        self.data_pair2_root = "..\\dataset\\For_shift_train\\pair2\\" # assume this one is the historical image
-        self.data_mat_root = "..\\dataset\\For_shift_train\\CostMatrix\\"
-        self.signalroot ="..\\dataset\\For_shift_train\\saved_stastics\\" 
+        self.random_shihft_flag  =True # this is used  for add tiny shihft to on line augment the iamge 
+
+        self.data_pair1_root = "../dataset/For_shift_train/pair1/"  # assume this one is the newest frame
+        self.data_pair2_root = "../dataset/For_shift_train/pair2/" # assume this one is the historical image
+        self.data_mat_root = "../dataset/For_shift_train/CostMatrix/"
+        self.signalroot ="../dataset/For_shift_train/saved_stastics/" 
         self.read_all_flag=0
         self.read_record =0
         self.folder_pointer = 0
@@ -63,16 +64,16 @@ class myDataloader_for_shift(object):
         for subfold in self.all_dir_list:
             #the mat list
             this_folder_list =  os.listdir(os.path.join(self.data_mat_root, subfold))
-            this_folder_list2 = [ self.data_mat_root +subfold + "\\" + pointer for pointer in this_folder_list]
+            this_folder_list2 = [ self.data_mat_root +subfold + "/" + pointer for pointer in this_folder_list]
             self.folder_mat_list[number_i] = this_folder_list2
 
             #the pair1 list
             this_folder_list =  os.listdir(os.path.join(self.data_pair1_root, subfold))
-            this_folder_list2 = [ self.data_pair1_root +subfold + "\\" + pointer for pointer in this_folder_list]
+            this_folder_list2 = [ self.data_pair1_root +subfold + "/" + pointer for pointer in this_folder_list]
             self.folder_pair1_list[number_i] = this_folder_list2
             #the pair2 list
             this_folder_list =  os.listdir(os.path.join(self.data_pair2_root, subfold))
-            this_folder_list2 = [ self.data_pair2_root +subfold + "\\" + pointer for pointer in this_folder_list]
+            this_folder_list2 = [ self.data_pair2_root +subfold + "/" + pointer for pointer in this_folder_list]
             self.folder_pair2_list[number_i] = this_folder_list2
             #the supervision signal list
                #change the dir firstly before read
@@ -87,6 +88,13 @@ class myDataloader_for_shift(object):
         aug_gray = np.clip(aug_gray, a_min = 1, a_max = 254)
 
         return aug_gray
+
+    def small_random_shift(self,orig_gray,random_1) :
+        random_shift  = 10 * (random_1 - 0.5)
+         
+        shifted = np.roll(orig_gray, int(random_shift), axis = 1)     # Positive x rolls right
+
+        return shifted 
 
     # let read a bathch
     def read_a_batch(self):
@@ -150,6 +158,10 @@ class myDataloader_for_shift(object):
                 pair2_piece =   self.gray_scale_augmentation(this_pair2[Crop_start:Crop_end,:],amplifier)
                 pair3_piece =   self.gray_scale_augmentation(this_pair1 ,amplifier)
                 pair4_piece =   self.gray_scale_augmentation(this_pair2,amplifier)
+                if (self.random_shihft_flag == True):
+                    delta  = random()
+                    pair4_piece  = self.small_random_shift(pair4_piece,delta)
+
 
                 pair1_piece  =  cv2.resize(pair1_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
                 pair2_piece  =  cv2.resize(pair2_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)

@@ -32,8 +32,8 @@ if Visdom_flag == True:
 
 
 from scipy import signal 
-Matrix_dir =  "..\\dataset\\CostMatrix\\1\\"
-#Save_pic_dir = '..\\DeepPathFinding_Version2\\out\\'
+Matrix_dir =  "../dataset/CostMatrix/1/"
+#Save_pic_dir = '../DeepPathFinding_Version2/out/'
 opt = arg_parse.opt
 opt.cuda = True
 # check the cuda device 
@@ -42,7 +42,7 @@ print(torch.cuda.device(0))
 print(torch.cuda.device_count())
 print(torch.cuda.get_device_name(0))
 print(torch.cuda.is_available())
-dataroot = "..\\dataset\\CostMatrix\\"
+dataroot = "../dataset/CostMatrix/"
 
 torch.set_num_threads(2)
 ######################################################################
@@ -258,7 +258,7 @@ while(1):
             #cv2.imwrite(Save_pic_dir  + str(i) +".jpg", mat)
             #show the result
 
-            dispay_id =5
+            dispay_id =0
             Matrix  =   mydata_loader.input_mat[dispay_id,0,:,:] +104
             show1 = Matrix*0
             path2 = (mydata_loader.input_path[dispay_id,:])*Original_window_Len
