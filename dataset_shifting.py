@@ -7,9 +7,9 @@ from image_trans import BaseTransform
 from random import seed
 from random import random
 seed(1)
-Batch_size = 10
-Resample_size =128
-Resample_size2 = 128
+Batch_size = 2
+Resample_size =300
+Resample_size2 = 200
 Path_length = 1
 Mat_size   = 71
 Original_window_Len  = 71
@@ -95,7 +95,10 @@ class myDataloader_for_shift(object):
         shifted = np.roll(orig_gray, int(random_shift), axis = 1)     # Positive x rolls right
 
         return shifted 
-
+    def image3_append(self,img):
+        long = np.append(img,img,axis=1)
+        long = np.append(long,img,axis=1)
+        return long
     # let read a bathch
     def read_a_batch(self):
         read_start = self.read_record
@@ -158,15 +161,16 @@ class myDataloader_for_shift(object):
                 pair2_piece =   self.gray_scale_augmentation(this_pair2[Crop_start:Crop_end,:],amplifier)
                 pair3_piece =   self.gray_scale_augmentation(this_pair1 ,amplifier)
                 pair4_piece =   self.gray_scale_augmentation(this_pair2,amplifier)
+
                 if (self.random_shihft_flag == True):
                     delta  = random()
                     pair4_piece  = self.small_random_shift(pair4_piece,delta)
 
 
-                pair1_piece  =  cv2.resize(pair1_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
-                pair2_piece  =  cv2.resize(pair2_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
-                pair3_piece  =  cv2.resize(pair3_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
-                pair4_piece  =  cv2.resize(pair4_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+                pair1_piece  =  cv2.resize(self.image3_append(pair1_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+                pair2_piece  =  cv2.resize(self.image3_append(pair2_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+                pair3_piece  =  cv2.resize(self.image3_append(pair3_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+                pair4_piece  =  cv2.resize(self.image3_append(pair4_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
                 #fill in the batch
                 self.input_mat[this_pointer,0,:,:] = this_mat #transform_mat(this_ma)[0]
                 #self.input_pair1[this_pointer,0,:,:] = transform_img(pair1_piece)[0]
