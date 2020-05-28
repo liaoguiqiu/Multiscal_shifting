@@ -22,7 +22,9 @@ Crop_end  = 200
 Display_nurd_flag = False
 class myDataloader_for_shift_OLG(object):
     def __init__(self, batch_size,image_size,path_size):
-        self.random_shihft_flag  =True # this is used  for add tiny shihft to on line augment the iamge 
+        self.random_shihft_flag  =False # this is used  for add tiny shihft to on line augment the iamge 
+        self.all_shift_flag  =True # this is used  for add tiny shihft to on line augment the iamge 
+
         self.data_origin = "../dataset/For_shift_train/saved_original_for_generator/"  # assume this one is the newest frame
 
         self.data_pair1_root = "../dataset/For_shift_train/pair1/"  # assume this one is the newest frame
@@ -136,6 +138,16 @@ class myDataloader_for_shift_OLG(object):
         shifted = np.roll(orig_gray, int(random_shift), axis = 1)     # Positive x rolls right
 
         return shifted 
+    def random_shiftxy(self,img,random1,random2) :
+        H,W =  img.shape
+        random_shift1  = 2*H * (random1 - 0.5)
+        random_shift2  = 2*W * (random2 - 0.5)
+        img = np.roll(img, int(random_shift1), axis = 0)     # Positive x rolls right
+
+         
+        img = np.roll(img, int(random_shift2), axis = 1)     # Positive x rolls right
+
+        return img 
     def image3_append(self,img):
         long = np.append(img,img,axis=1)
         long = np.append(long,img,axis=1)
@@ -213,7 +225,7 @@ class myDataloader_for_shift_OLG(object):
             original_IMG = cv2.imread(Sample_path) # get this image 
             original_IMG  =   cv2.cvtColor(original_IMG, cv2.COLOR_BGR2GRAY) # to gray
             original_IMG = cv2.resize(original_IMG, (self.W,self.H), interpolation=cv2.INTER_AREA)
-
+            
 
             #this_pair1_path = self.folder_pair1_list[self.folder_pointer][i] # read saved pair1
             #this_pair1 = cv2.imread(this_pair1_path)
@@ -236,7 +248,7 @@ class myDataloader_for_shift_OLG(object):
             #Path_Index = Path_Index_list.tolist().index(Image_ID_str)            
             #this_path = self.signal[self.folder_pointer].path_saving[Path_Index]
 
-            random_NURD   = np.random.random_sample(20)*10
+            random_NURD   = np.random.random_sample(20)*20
             random_NURD  = signal.resample(random_NURD, self.W)
 
             random_NURD = gaussian_filter1d(random_NURD,10) # smooth the path 
@@ -253,7 +265,7 @@ class myDataloader_for_shift_OLG(object):
             this_mat  =   cv2.cvtColor(this_mat, cv2.COLOR_BGR2GRAY)
             this_pair1  =   original_IMG
             this_pair2  =   self.de_distortion_integral (this_pair1,random_NURD)
-            noise_selector=['gauss_noise','speckle','gauss_noise','speckle']
+            noise_selector=['gauss_noise','s&p','gauss_noise','speckle']
             noise_it = np.random.random_sample()*5
             noise_type1  =  str( noise_selector[int(noise_it)%4])
             noise_it = np.random.random_sample()*5
@@ -277,18 +289,33 @@ class myDataloader_for_shift_OLG(object):
 
             pair1_piece =   self.gray_scale_augmentation(this_pair1[Crop_start:Crop_end,:],amplifier1)
             pair2_piece =   self.gray_scale_augmentation(this_pair2[Crop_start:Crop_end,:],amplifier2)
-            pair3_piece =   self.gray_scale_augmentation(this_pair1 ,amplifier1)
-            pair4_piece =   self.gray_scale_augmentation(this_pair2,amplifier3)
+            #pair3_piece =   self.gray_scale_augmentation(this_pair1 ,amplifier1)
+            #pair4_piece =   self.gray_scale_augmentation(this_pair2,amplifier3)
+            pair3_piece =   self.gray_scale_augmentation(this_pair1[Crop_start:Crop_end,:],amplifier1)
+            pair4_piece =   self.gray_scale_augmentation(this_pair2[Crop_start:Crop_end,:],amplifier3)
 
             if (self.random_shihft_flag == True):
                 delta  = np.random.random_sample()
                 pair4_piece  = self.small_random_shift(pair4_piece,delta)
+            pair1_piece  =  cv2.resize(pair1_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+            pair2_piece  =  cv2.resize(pair2_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+            pair3_piece  =  cv2.resize(pair3_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+            pair4_piece  =  cv2.resize(pair4_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+
+            if self.all_shift_flag ==True:
+                delta1  = np.random.random_sample()
+                delta2  = np.random.random_sample()
+                pair1_piece = self. random_shiftxy(pair1_piece,delta1,delta2)
+                pair2_piece = self. random_shiftxy(pair2_piece,delta1,delta2)
+                pair3_piece = self. random_shiftxy(pair3_piece,delta1,delta2)
+                pair4_piece = self. random_shiftxy(pair4_piece,delta1,delta2)
 
 
-            pair1_piece  =  cv2.resize(self.image2_append(pair1_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
-            pair2_piece  =  cv2.resize(self.image2_append(pair2_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
-            pair3_piece  =  cv2.resize(self.image2_append(pair3_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
-            pair4_piece  =  cv2.resize(self.image2_append(pair4_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+
+            #pair1_piece  =  cv2.resize(self.image2_append(pair1_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+            #pair2_piece  =  cv2.resize(self.image2_append(pair2_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+            #pair3_piece  =  cv2.resize(self.image2_append(pair3_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
+            #pair4_piece  =  cv2.resize(self.image2_append(pair4_piece), (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
             #fill in the batch
             self.input_mat[this_pointer,0,:,:] = this_mat #transform_mat(this_ma)[0]
             #self.input_pair1[this_pointer,0,:,:] = transform_img(pair1_piece)[0]

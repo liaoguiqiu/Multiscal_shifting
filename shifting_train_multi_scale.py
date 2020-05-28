@@ -16,13 +16,13 @@ import cv2
 import numpy
 from image_trans import BaseTransform  
 import os
-from dataset_shifting import Original_window_Len
+#from dataset_shifting import Original_window_Len
 from multiscaleloss import multiscaleEPE
 from  matlab import Save_Signal_matlab
 
 from dataset_shifting import myDataloader_for_shift,Batch_size,Resample_size, Path_length, Mat_size,Resample_size2
 
-from dataset_OLG import myDataloader_for_shift_OLG
+from dataset_OLG import myDataloader_for_shift_OLG,Original_window_Len
 DS_OLG = True
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -181,9 +181,9 @@ if DS_OLG  == True:
     mydata_loader = myDataloader_for_shift_OLG (Batch_size,Resample_size,Path_length)
 else :
     mydata_loader = myDataloader_for_shift (Batch_size,Resample_size,Path_length)
-multi_scale_weight = [0.005, 0.01, 0.02, 0.08, 0.32]
+#multi_scale_weight = [0.005, 0.01, 0.02, 0.08, 0.32]
 multi_scale_weight = [0.005, 0.01, 0.02, 0.16, 0.32]
-multi_scale_weight = [0.005, 0.005, 0.01, 0.02, 0.32]
+#multi_scale_weight = [0.005, 0.005, 0.01, 0.02, 0.32]
 
 
 #multi_scale_weight = [0.05, 0.05, 0.1, 0.3, 0.5]
@@ -275,8 +275,9 @@ while(1):
             #show the result
 
             dispay_id =0
-            Matrix  =   mydata_loader.input_mat[dispay_id,0,:,:] +104
-            show1 = Matrix*0
+            #Matrix  =   mydata_loader.input_mat[dispay_id,0,:,:] +104
+            show1  = numpy.zeros((Original_window_Len,100))
+
             path2 = (mydata_loader.input_path[dispay_id,:])*Original_window_Len
              
             show1[int(path2[0]),:]=254
@@ -285,16 +286,32 @@ while(1):
             save_out = save_out[4] 
             save_out = save_out[dispay_id] 
 
+            ave_out =0
+            for k in range(len(multi_scale_weight)):
+                this_out =      output[k] 
+                this_out = this_out[dispay_id] 
+                this_out  = (this_out.data.mean()) *(Original_window_Len)  
+                ave_out += this_out*multi_scale_weight[k]
+
+            ave_out /= numpy.sum(multi_scale_weight)
+
 
             save_out  = (save_out.data.mean()) *(Original_window_Len)  
+            ave_out  = (ave_out.data.mean()) 
+
+            #save_out  =ave_out
             #save_out  = signal.resample(save_out, Mat_size)
             if save_out >= Original_window_Len:
                 save_out  = Original_window_Len -1
-            show2  = Matrix*0
+            if ave_out >= Original_window_Len:
+                ave_out  = Original_window_Len -1
+            show2  = numpy.zeros((Original_window_Len,100))
             
             if save_out >= Original_window_Len:
                 save_out  = Original_window_Len-1
-            show2[int(save_out ),:]=254
+            show2[int(ave_out ),:]=254
+            show2[int(save_out ),:]=128
+
 
 
             
