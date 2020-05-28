@@ -37,6 +37,9 @@
     <Compile Include="dataset_shifting2.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="dataset_OLG.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="extract_imagenet.py" />
     <Compile Include="gan_body.py" />
     <Compile Include="get_samples.py" />

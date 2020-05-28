@@ -16,10 +16,14 @@ import cv2
 import numpy
 from image_trans import BaseTransform  
 import os
-from dataset_shifting import myDataloader_for_shift,Batch_size,Resample_size, Path_length, Mat_size,Resample_size2
 from dataset_shifting import Original_window_Len
 from multiscaleloss import multiscaleEPE
 from  matlab import Save_Signal_matlab
+
+from dataset_shifting import myDataloader_for_shift,Batch_size,Resample_size, Path_length, Mat_size,Resample_size2
+
+from dataset_OLG import myDataloader_for_shift_OLG
+DS_OLG = True
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # Switch control for the Visdom or Not
@@ -156,7 +160,10 @@ fixed_noise = Variable(fixed_noise)
 
 # setup optimizer
 #optimizerG = optim.Adam(netG.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
-optimizerD = optim.Adam(netD.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
+#optimizerD = optim.Adam(netD.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
+
+optimizerD = optim.Adam(netD.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999),weight_decay=2e-4  )
+
 #optimizerD = optim.SGD(netD.parameters(), lr=opt.lr,momentum= 0.9, weight_decay =2e-4 )
 
 
@@ -170,8 +177,17 @@ epoch=0
 #transform = BaseTransform(  Resample_size,(104/256.0, 117/256.0, 123/256.0))
 #transform = BaseTransform(  Resample_size,[104])  #gray scale data
 iteration_num =0
-mydata_loader = myDataloader_for_shift (Batch_size,Resample_size,Path_length)
+if DS_OLG  == True:
+    mydata_loader = myDataloader_for_shift_OLG (Batch_size,Resample_size,Path_length)
+else :
+    mydata_loader = myDataloader_for_shift (Batch_size,Resample_size,Path_length)
 multi_scale_weight = [0.005, 0.01, 0.02, 0.08, 0.32]
+multi_scale_weight = [0.005, 0.01, 0.02, 0.16, 0.32]
+multi_scale_weight = [0.005, 0.005, 0.01, 0.02, 0.32]
+
+
+#multi_scale_weight = [0.05, 0.05, 0.1, 0.3, 0.5]
+
 matlab_saver  = Save_Signal_matlab()
 while(1):
     
