@@ -7,7 +7,7 @@ import os
 ########################class for signal##########################################
 class Save_Signal_matlab(object):
       def __init__(self):
-          self.flag  = True
+          self.flag  = False
 
           self.save_matlab_root = "../../saved_matlab/"
           self.check_dir(self.save_matlab_root)

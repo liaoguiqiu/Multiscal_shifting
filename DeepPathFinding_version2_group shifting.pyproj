@@ -48,6 +48,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
+    <Compile Include="ShiftingNetBody_V3.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="multiscaleloss.py">
       <SubType>Code</SubType>
     </Compile>

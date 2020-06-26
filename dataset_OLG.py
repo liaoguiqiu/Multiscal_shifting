@@ -10,8 +10,10 @@ import matplotlib.pyplot as plt
 import scipy.signal as signal
 
 Batch_size = 10
-Resample_size =512
-Resample_size2 = 200
+#Resample_size =512
+#Resample_size2 = 200
+Resample_size =64
+Resample_size2 = 64
 Path_length = 1
 Mat_size   = 71
 Original_window_Len  = 71
@@ -22,7 +24,8 @@ Crop_end  = 200
 Display_nurd_flag = False
 class myDataloader_for_shift_OLG(object):
     def __init__(self, batch_size,image_size,path_size):
-        self.random_shihft_flag  =False # this is used  for add tiny shihft to on line augment the iamge 
+        self.random_shihft_flag  =True # this is used  for add tiny shihft to on line augment the iamge 
+        self.random_shihft_flag  =True # this is used  for add tiny shihft to on line augment the iamge 
         self.all_shift_flag  =True # this is used  for add tiny shihft to on line augment the iamge 
 
         self.data_origin = "../dataset/For_shift_train/saved_original_for_generator/"  # assume this one is the newest frame
@@ -133,7 +136,7 @@ class myDataloader_for_shift_OLG(object):
               noisy = image + image * gauss
               return np.clip(noisy,0,254)
     def small_random_shift(self,orig_gray,random_1) :
-        random_shift  = 10 * (random_1 - 0.5)
+        random_shift  = 5 * (random_1 - 0.5)
          
         shifted = np.roll(orig_gray, int(random_shift), axis = 1)     # Positive x rolls right
 
@@ -248,7 +251,7 @@ class myDataloader_for_shift_OLG(object):
             #Path_Index = Path_Index_list.tolist().index(Image_ID_str)            
             #this_path = self.signal[self.folder_pointer].path_saving[Path_Index]
 
-            random_NURD   = np.random.random_sample(20)*20
+            random_NURD   = np.random.random_sample(50)*20
             random_NURD  = signal.resample(random_NURD, self.W)
 
             random_NURD = gaussian_filter1d(random_NURD,10) # smooth the path 
@@ -289,10 +292,10 @@ class myDataloader_for_shift_OLG(object):
 
             pair1_piece =   self.gray_scale_augmentation(this_pair1[Crop_start:Crop_end,:],amplifier1)
             pair2_piece =   self.gray_scale_augmentation(this_pair2[Crop_start:Crop_end,:],amplifier2)
-            #pair3_piece =   self.gray_scale_augmentation(this_pair1 ,amplifier1)
-            #pair4_piece =   self.gray_scale_augmentation(this_pair2,amplifier3)
-            pair3_piece =   self.gray_scale_augmentation(this_pair1[Crop_start:Crop_end,:],amplifier1)
-            pair4_piece =   self.gray_scale_augmentation(this_pair2[Crop_start:Crop_end,:],amplifier3)
+            pair3_piece =   self.gray_scale_augmentation(this_pair1 ,amplifier1)
+            pair4_piece =   self.gray_scale_augmentation(this_pair2,amplifier3)
+            #pair3_piece =   self.gray_scale_augmentation(this_pair1[Crop_start:Crop_end,:],amplifier1)
+            #pair4_piece =   self.gray_scale_augmentation(this_pair2[Crop_start:Crop_end,:],amplifier3)
 
             if (self.random_shihft_flag == True):
                 delta  = np.random.random_sample()

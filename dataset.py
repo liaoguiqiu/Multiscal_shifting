@@ -7,13 +7,15 @@ from scipy import signal
 from image_trans import BaseTransform  
 from random import seed
 from random import random
+import pickle
+
 seed(1)
 Batch_size = 100
 Resample_size =80
 Resample_size2 = 80
 Path_length = 20
 Mat_size   = 80
- 
+Original_window_Len =71
 transform_img = BaseTransform(  Resample_size,[104])  #gray scale data
 transform_mat = BaseTransform(  Mat_size,[104])  #gray scale data
 

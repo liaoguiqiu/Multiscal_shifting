@@ -7,7 +7,7 @@ import torchvision.datasets as dset
 import torchvision.transforms as transforms
 import torchvision.utils as vutils
 from torch.autograd import Variable
-import ShiftingNetBody_V2
+import ShiftingNetBody_V3
 import arg_parse
 import imagenet
 from analy import MY_ANALYSIS
@@ -111,7 +111,7 @@ nc = 3 # channels
 
 #Guiqiu Resnet version
 
-netD = ShiftingNetBody_V2.ShiftingNet_init( None)
+netD = ShiftingNetBody_V3.ShiftingNet_init( None)
 #my_netD  = ShiftingNetBody.ShiftingNet_init_my( None)
 
 netD.apply(weights_init)
@@ -182,7 +182,7 @@ if DS_OLG  == True:
 else :
     mydata_loader = myDataloader_for_shift (Batch_size,Resample_size,Path_length)
 #multi_scale_weight = [0.005, 0.01, 0.02, 0.08, 0.32]
-multi_scale_weight = [0.005, 0.01, 0.02, 0.16, 0.32]
+multi_scale_weight = [0.0001, 0.001, 0.001, 0.001, 0.32]
 #multi_scale_weight = [0.005, 0.005, 0.01, 0.02, 0.32]
 
 
