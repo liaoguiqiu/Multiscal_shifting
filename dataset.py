@@ -10,7 +10,7 @@ from random import random
 import pickle
 
 seed(1)
-Batch_size = 100
+Batch_size = 1
 Resample_size =80
 Resample_size2 = 80
 Path_length = 20

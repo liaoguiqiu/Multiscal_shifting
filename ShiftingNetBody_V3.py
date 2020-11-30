@@ -27,7 +27,7 @@ def predict_shift(in_planes):
 # basic de-conv layer
 def deconv(in_planes, out_planes):
     return nn.Sequential(
-        nn.ConvTranspose2d(in_planes, out_planes, kernel_size=4, stride=2, padding=1, bias=False),
+        nn.ConvTranspose2d(in_planes, out_planes, kernel_size=4, stride=4, padding=0, bias=False),
         nn.LeakyReLU(0.1,inplace=True)
     )
 
@@ -48,9 +48,9 @@ class _ShiftingNet(nn.Module):
 
         self.batchNorm = batchNorm
         #LGQ the input is change into gray scale
-        self.conv1   = conv(self.batchNorm,   4,   256, kernel_size=8, stride=2)
-        self.conv2   = conv(self.batchNorm,  256,  512, kernel_size=6, stride=2)
-        self.conv3   = conv(self.batchNorm, 512,  512, kernel_size=4, stride=2)
+        self.conv1   = conv(self.batchNorm,   4,   256, kernel_size=8, stride=4)
+        self.conv2   = conv(self.batchNorm,  256,  512, kernel_size=6, stride=4)
+        self.conv3   = conv(self.batchNorm, 512,  512, kernel_size=4, stride=4)
         #self.conv3_1 = conv(self.batchNorm, 256,  256)
         #self.conv4   = conv(self.batchNorm, 256,  512, stride=2)
         #self.conv4_1 = conv(self.batchNorm, 512,  512)

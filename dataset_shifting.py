@@ -7,11 +7,11 @@ from image_trans import BaseTransform
 from random import seed
 from random import random
 seed(1)
-Batch_size = 10
+Batch_size = 1
 #Resample_size =512
 #Resample_size2 = 200
-Resample_size =64
-Resample_size2 = 64
+Resample_size =512
+Resample_size2 = 400
 Path_length = 1
 Mat_size   = 71
 Original_window_Len  = 71

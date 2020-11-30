@@ -5,8 +5,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{bf6a4053-8842-49f4-bc13-3aa8116b1788}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>shifting_train_multi_scale.py</StartupFile>
-    <SearchPath />
+    <StartupFile>pair2path\pair2path_train.py</StartupFile>
+    <SearchPath>model;test_model</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
@@ -48,6 +48,33 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
+    <Compile Include="model\base_model.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="model\cGAN_build2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="model\networks.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="model\options\base_options.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="model\options\train_options.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="model\options\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="model\pix2line_model2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="model\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="pair2path\pair2path_train.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ShiftingNetBody_V3.py">
       <SubType>Code</SubType>
     </Compile>
@@ -85,6 +112,15 @@
     <Compile Include="test_Deep_finding.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="test_model\fusion_nets3.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_model\layer_body_sheath_res2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="test_model\loss_MTL.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="train_pair_to_path.py">
       <SubType>Code</SubType>
     </Compile>
@@ -96,6 +132,10 @@
   <ItemGroup>
     <Folder Include="images" />
     <Folder Include="images\NewFolder1\" />
+    <Folder Include="model\" />
+    <Folder Include="model\options\" />
+    <Folder Include="test_model\" />
+    <Folder Include="pair2path\" />
     <Folder Include="save_result_analy\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

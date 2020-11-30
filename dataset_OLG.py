@@ -9,11 +9,11 @@ from scipy.ndimage import gaussian_filter1d
 import matplotlib.pyplot as plt
 import scipy.signal as signal
 
-Batch_size = 10
+Batch_size = 1
 #Resample_size =512
 #Resample_size2 = 200
-Resample_size =64
-Resample_size2 = 64
+Resample_size =512
+Resample_size2 = 416
 Path_length = 1
 Mat_size   = 71
 Original_window_Len  = 71
@@ -29,7 +29,7 @@ class myDataloader_for_shift_OLG(object):
         self.all_shift_flag  =True # this is used  for add tiny shihft to on line augment the iamge 
 
         self.data_origin = "../dataset/For_shift_train/saved_original_for_generator/"  # assume this one is the newest frame
-
+        batch_size = Batch_size
         self.data_pair1_root = "../dataset/For_shift_train/pair1/"  # assume this one is the newest frame
         self.data_pair2_root = "../dataset/For_shift_train/pair2/" # assume this one is the historical image
         self.data_mat_root = "../dataset/For_shift_train/CostMatrix/"

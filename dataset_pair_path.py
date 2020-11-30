@@ -10,10 +10,13 @@ from image_trans import BaseTransform
 from random import seed
 from random import random
 seed(1)
-Batch_size = 4
-Resample_size =300
-Resample_size2 = 300
-Path_length = 300
+Batch_size = 1
+#Resample_size =300
+#Resample_size2 = 300
+#Path_length = 300
+Resample_size =256
+Resample_size2 = 256
+Path_length = 256
 Mat_size   = 71
 Original_window_Len  = 71
 transform_img = BaseTransform(  Resample_size,[104])  #gray scale data

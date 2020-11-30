@@ -23,7 +23,7 @@ from  matlab import Save_Signal_matlab
 from dataset_shifting import myDataloader_for_shift,Batch_size,Resample_size, Path_length, Mat_size,Resample_size2
 
 from dataset_OLG import myDataloader_for_shift_OLG,Original_window_Len
-DS_OLG = True
+DS_OLG = False
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # Switch control for the Visdom or Not
