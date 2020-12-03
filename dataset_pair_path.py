@@ -39,7 +39,7 @@ class myDataloader_for_shift(object):
         self.path_size  = Path_length
         self.mat_size  = Mat_size
         self.img_size2  = Resample_size2
-
+        self.reverse_flag  = False
 
         # Initialize the inout for the tainning
         self.input_mat = np.zeros((batch_size,1,Mat_size,Resample_size)) #matri
@@ -153,8 +153,12 @@ class myDataloader_for_shift(object):
                 amplifier  = random()
                 pair1_piece =   self.gray_scale_augmentation(this_pair1[Crop_start:Crop_end,:],amplifier)
                 pair2_piece =   self.gray_scale_augmentation(this_pair2[Crop_start:Crop_end,:],amplifier)
+
                 pair3_piece =   self.gray_scale_augmentation(this_pair1 ,amplifier)
                 pair4_piece =   self.gray_scale_augmentation(this_pair2,amplifier)
+                
+
+
 
                 pair1_piece  =  cv2.resize(pair1_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
                 pair2_piece  =  cv2.resize(pair2_piece, (Resample_size,Resample_size2), interpolation=cv2.INTER_AREA)
@@ -169,6 +173,17 @@ class myDataloader_for_shift(object):
                 self.input_pair3[this_pointer,0,:,:] = pair3_piece -104
                 self.input_pair4[this_pointer,0,:,:] = pair4_piece - 104
                 self.input_path [this_pointer , :] = path_piece / Original_window_Len
+                 
+                if self.reverse_flag == True:
+                    Dice  = int( random() *100)
+                    if Dice % 2 == 0 :
+
+
+                        self.input_pair3[this_pointer,0,:,:] = pair4_piece -104
+                        self.input_pair4[this_pointer,0,:,:] = pair3_piece - 104
+                        self.input_path [this_pointer , :] = (Original_window_Len-path_piece) / Original_window_Len
+
+
                 this_pointer +=1
  
 

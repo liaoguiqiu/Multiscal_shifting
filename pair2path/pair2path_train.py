@@ -123,7 +123,7 @@ GANmodel.netG.cuda()
 
 if Continue_flag == True:
     #netD.load_state_dict(torch.load(opt.netD))
-    GANmodel.netG.load_state_dict(torch.load(pth_save_dir+'cGANG_epoch_1.pth'))
+    GANmodel.netG.load_state_dict(torch.load(pth_save_dir+'cGANG_epoch_5.pth'))
     #GANmodel.netD.load_state_dict(torch.load(pth_save_dir+'cGAND_epoch_1.pth'))
     #GANmodel.netG.side_branch1. load_state_dict(torch.load(pth_save_dir+'cGANG_branch1_epoch_1.pth'))
 print(GANmodel.netG)
@@ -246,7 +246,7 @@ while(1):
 
         #output = output.view(Batch_size,Path_length).squeeze(1)
         save_out  = GANmodel.out_pathes0
-        #save_out  = GANmodel.path_long3
+        #save_out  = GANmodel.path_long1
 
   
 

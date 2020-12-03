@@ -166,7 +166,7 @@ class Pix2LineModel(BaseModel):
         self.optimizer_G.zero_grad()        # set G's gradients to zero
 
         #self.set_requires_grad(self.netD, False)  # D requires no gradients when optimizing G
-        self.set_requires_grad(self.netG, False)  # D requires no gradients when optimizing G
+        self.set_requires_grad(self.netG, True)  # D requires no gradients when optimizing G
         # just remain the upsample fusion parameter to optimization 
         #self.set_requires_grad(self.netG.side_branch1, False)  # D requires no gradients when optimizing G
         #self.set_requires_grad(self.netG.side_branch2, False)  # D requires no gradients when optimizing G
